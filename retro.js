@@ -134,7 +134,6 @@ class Palette {
     static gradient(r1, g1, b1, r2, g2, b2, steps) {
         var tmp = []
         for (var i=0; i<steps; i++) {
-            r1 + ((r2 - r1) / steps) * i
             tmp.push(rgba_to_uint32(
                 r1 + ((r2 - r1) / steps) * i,
                 g1 + ((g2 - g1) / steps) * i,
