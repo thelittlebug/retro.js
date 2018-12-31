@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>retro js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="fps"></div>
+    <script src="retro.js"></script>
+    <script>
+        my_screen = new Screen(
+            128, 128,
+            Palette.gradient(0, 0, 0, 255, 0, 0, 64)
+                .add_colors(Palette.gradient(255, 0, 0, 0, 255, 0, 64))
+                .add_colors(Palette.gradient(0, 255, 0, 0, 0, 255, 64))
+                .add_colors(Palette.gradient(0, 0, 255, 255, 0, 0, 64)),
+            (app) => {
+                bob_width = 16
+                bob_height = 16
+                width = (app.width - bob_width) / 2
+                height = (app.height - bob_height) / 2
+
+                var blob = function (sx, sy, add) {
+                    ix = Math.floor(sx)
+                    iy = Math.floor(sy)
+                    for (var y = 0; y < 15; y++) {
+                        for (var x = 0; x < 15; x++) {
+                            app.screen[(iy + y) * app.width + (ix + x)] += add
+                        }
+                    }
+                }
+
+                blob(
+                    Math.sin(app.frame_number * 3.14 / 180 * 0.37) * width + width,
+                    Math.cos(app.frame_number * 3.14 / 180 * 0.73) * height + height,
+                    1
+                )
+            }, 2)
+    </script>
+</body>
+
+</html>

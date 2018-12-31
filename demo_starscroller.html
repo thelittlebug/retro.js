@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>retro js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="fps"></div>
+    <script src="retro.js"></script>
+    <script>
+        var width = 256
+        var height = 128
+        var stars = []
+        for (var i=0; i<500; i++) {
+            stars.push({
+                x: Math.floor((Math.random() * 256) + 1),
+                y: Math.floor((Math.random() * 128) + 1),
+                distance: Math.floor((Math.random() * 128) + 128),
+                power: Math.floor((Math.random() * 128) + 128)
+            })
+        }
+
+        my_screen = new Screen(width, height, Palette.gradient(0, 0, 0, 255, 255, 255, 256), function (app) {
+            for (var y=0; y<app.height; y++) {
+                for (var x=0; x<app.width; x++) {
+                    app.screen[y * app.width + x] /= 2
+                }
+            }
+            for (var i=0; i<500; i++) {
+                var star = stars[i]
+                app.screen[star.y * app.width + Math.floor(star.x)] = Math.floor(256 - (star.distance * (star.power / 256)))
+                stars[i].x = stars[i].x - (128/star.distance)
+            }
+        }, 1)
+    </script>
+</body>
+</html>
